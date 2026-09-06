@@ -1,38 +1,52 @@
-# qa-framework-template
+# playwright-ts-automationexercise
 
-The template every month of the [daily QA portfolio](https://github.com/fayeemajidul)
-is created from. It is not a framework itself. It is the machinery that lets one
-framework get built a little each day, in public, without the result looking like
-filler.
+A Playwright and TypeScript test framework built against
+[automationexercise.com](https://automationexercise.com), one reviewed commit a
+day through September 2026.
 
-## What is in here
+[![nightly](https://github.com/fayeemajidul/playwright-ts-automationexercise/actions/workflows/nightly.yml/badge.svg)](https://github.com/fayeemajidul/playwright-ts-automationexercise/actions/workflows/nightly.yml)
+[![ci](https://github.com/fayeemajidul/playwright-ts-automationexercise/actions/workflows/ci.yml/badge.svg)](https://github.com/fayeemajidul/playwright-ts-automationexercise/actions/workflows/ci.yml)
+[![license](https://img.shields.io/github/license/fayeemajidul/playwright-ts-automationexercise)](LICENSE)
 
-| Path | What it does |
-|---|---|
-| `AGENTS.md` | The rulebook the daily agent must follow. Engineering standards, hard rules, and what a finished day means. |
-| `.github/workflows/daily-engineering.yml` | Runs one unit of work each morning, Monday to Saturday, on GitHub's servers. |
-| `.github/workflows/nightly.yml` | Runs the full suite against the live target site and publishes the report. |
-| `.github/workflows/ci.yml` | The same gate on human pull requests. |
-| `scripts/daily/change-guard.sh` | The referee. Decides whether a day's work is real enough to become a commit. |
-| `scripts/daily/park.sh` | Turns a failed day into a repairable draft rather than a lost day. |
-| `scripts/new-month.sh` | Creates and configures the next month's repo in one command. |
+> Being built in the open. [`ROADMAP.md`](ROADMAP.md) is the plan and it is
+> honest about what does not exist yet.
 
-## Starting a month
+## Why this target
+
+automationexercise.com publishes a list of API endpoints and states in writing
+that they exist for practising API testing. So the API layer here is real work
+rather than decoration, and test setup goes through the API instead of clicking
+through the interface, which is both faster and not the thing under test.
+
+## Quick start
 
 ```bash
-./scripts/new-month.sh playwright-ts-automationexercise https://automationexercise.com PW
+pnpm install
+pnpm exec playwright install chromium
+cp .env.example .env
+pnpm gate
 ```
 
-Then set the token secret, register a throwaway account on the target site, write
-`ROADMAP.md`, and do item 01 by hand so the first commit of every repo is human
-verified. The script prints these steps when it finishes.
+## Commands
 
-## The idea
+| Command | What it runs |
+|---|---|
+| `pnpm gate` | Everything that must pass before a commit: lint, typecheck, unit, smoke |
+| `pnpm test:smoke` | The fast subset, tagged `@smoke` |
+| `pnpm test:regression` | The full suite, as the nightly run does |
+| `pnpm test:api` | API tests only |
 
-An agent that commits its own work will eventually commit filler, because nothing
-stops it. So the agent here cannot use git at all. It edits files and runs tests.
-The workflow independently reruns the gate, a guard script checks the diff is real
-engineering, and only then does a commit exist. See
+## What this will demonstrate
+
+Tracked in [`ROADMAP.md`](ROADMAP.md), each backed by a specific item: page
+objects, an API layer, structured logging, reporting, CI, retries with a cap,
+typed environment config, and docs.
+
+## How it is built
+
+One unit of work per day by a scheduled GitHub Actions job, reviewed weekly by
+me. The agent cannot use git; the workflow reruns the gate independently and a
+guard script rejects anything that is not real engineering. Details in
 [`docs/HOW_THIS_REPO_IS_BUILT.md`](docs/HOW_THIS_REPO_IS_BUILT.md).
 
 ## License
