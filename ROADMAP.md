@@ -35,7 +35,7 @@ The month is not finished until all eight of these are real.
 ## Week 1, foundation
 
 - [x] PW-01 [offline-ok] [scaffold] Project scaffold: pnpm, TypeScript strict, Playwright, eslint, prettier, `.env.example`, and a `gate` script. Done when: `pnpm gate` passes with one placeholder test.
-- [ ] PW-02 [offline-ok] Typed environment config validated at startup with zod: base url, api url, credentials, timeouts, three named environments. Done when: a unit test proves an invalid environment fails fast with a readable message.
+- [x] PW-02 [offline-ok] Typed environment config validated at startup with zod: base url, api url, credentials, timeouts, three named environments. Done when: a unit test proves an invalid environment fails fast with a readable message.
 - [ ] PW-03 [offline-ok] Architecture doc with the layer table and a Mermaid diagram in `docs/ARCHITECTURE.md`. Done when: the README links to it and the diagram matches the real folders.
 - [ ] PW-04 [offline-ok] Base page object and the locator strategy ladder in `docs/LOCATORS.md`. Done when: the doc states the ordered preference and BasePage exposes only navigation and waiting helpers.
 - [ ] PW-05 Home page object and a first real smoke test against the live site. Done when: the smoke test asserts the carousel and category list render, and passes twice in a row.
