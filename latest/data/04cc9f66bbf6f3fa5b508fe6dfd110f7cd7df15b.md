@@ -12,20 +12,21 @@
 # Error details
 
 ```
-Error: target site should answer with a success status
+Error: expect(page).toHaveTitle(expected) failed
 
-expect(received).toBeLessThan(expected)
+Expected pattern: /automation/i
+Received string:  "One moment, please..."
+Timeout: 10000ms
 
-Expected: < 400
-Received:   503
+Call log:
+  - Expect "toHaveTitle" with timeout 10000ms
+    24 × locator resolved to <html lang="en">…</html>
+       - unexpected value "One moment, please..."
+
 ```
 
-# Page snapshot
-
 ```yaml
-- generic [active] [ref=e1]:
-  - heading "This website is under heavy load (queue full)" [level=2] [ref=e2]
-  - paragraph [ref=e3]: We're sorry, too many people are accessing this website at the same time. We're working on this problem. Please try again later.
+- text: Please wait while your request is being verified...
 ```
 
 # Test source
@@ -37,9 +38,9 @@ Received:   503
   4  | // meaningful assertions about the home page.
   5  | test('@smoke the site responds and renders its title', async ({ page }) => {
   6  |   const response = await page.goto('/');
-> 7  |   expect(response?.status(), 'target site should answer with a success status').toBeLessThan(400);
-     |                                                                                 ^ Error: target site should answer with a success status
-  8  |   await expect(page).toHaveTitle(/automation/i);
+  7  |   expect(response?.status(), 'target site should answer with a success status').toBeLessThan(400);
+> 8  |   await expect(page).toHaveTitle(/automation/i);
+     |                      ^ Error: expect(page).toHaveTitle(expected) failed
   9  | });
   10 | 
 ```
